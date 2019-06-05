@@ -1,4 +1,4 @@
-# Scratch Node.js Docker Images
+# Hardened Scratch Node.js Docker Images
 
 Smallest Node.js Docker images.
 
@@ -29,7 +29,7 @@ COPY package.json package-lock.json index.js ./
 
 RUN npm install --prod
 
-FROM astefanutti/scratch-node
+FROM tillhub/hard-scratch-node
 
 COPY --from=builder /app /
 
@@ -48,7 +48,7 @@ RUN apk update && apk add make g++ python
 
 RUN LDFLAGS='-static-libgcc -static-libstdc++' npm install --build-from-source=<native_module>
 
-FROM astefanutti/scratch-node
+FROM tillhub/hard-scratch-node
 
 ...
 ```
@@ -58,7 +58,7 @@ FROM astefanutti/scratch-node
 The image can be built by executing the following commands:
 
 ```
-$ git clone https://github.com/astefanutti/scratch-node
-& cd scratch-node
+$ git clone https://github.com/tillhub/hard-scratch-node
+& cd hard-scratch-node
 $ docker build --build-arg version=<nodejs_version> --build-arg arch=<target_architecture> .
 ```
